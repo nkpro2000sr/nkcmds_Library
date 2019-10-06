@@ -25,7 +25,6 @@ ______________________________________________________
 otherwise -3,-4 is returned and given work is done.
 disableing strict may leads to errors.
 %d%.0 only works properly on windows platform.
--3 or -3.1 is not supported.
 """
     from os import popen,rename,path as Path
     from sys import platform,exc_info
@@ -43,7 +42,9 @@ disableing strict may leads to errors.
         if Path.split(path)[1]=='':
             if strict:
                 return (3,"there is no directory "+path)
-            else: code = -3
+            else:
+                code = -3
+                path = Path.split(path)[0]
     else: return (5,"path not found "+path)
     
     if platform[:3]=="win":
