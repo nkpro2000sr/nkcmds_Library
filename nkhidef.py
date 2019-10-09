@@ -1,5 +1,5 @@
 def nkhidef(path:"path of file or dir",show:"show flag"=False,
-            strict:"strict path syntax"=True)->"(<code_num>,<result_string>)":
+            strict:"strict path syntax"=False)->"(<code_num>,<result_string>)":
     """
 It is used to hide file:
 path may be path of file or directory,
@@ -56,18 +56,18 @@ disableing strict may leads to errors.
                 if hiden:
                     popen('attrib -h '+path).close()
                     return (code if code else 0,
-                             "given "+("file " if file else "dir ")+path+" is UNHIDED")
+                             "given >"+("file " if file else "dir ")+path+" is UNHIDED")
                 else:
                     return ((code - 0.1) if code else 0.1,
-                            "given "+("file " if file else "dir ")+path+" is already not hiden")
+                            "given >"+("file " if file else "dir ")+path+" is already not hiden")
             else:
                 if not hiden:
                     popen('attrib +h '+path).close()
                     return (code if code else 0,
-                          "given "+("file " if file else "dir ")+path+" is HIDED")
+                          "given >"+("file " if file else "dir ")+path+" is HIDED")
                 else:
                     return ((code - 0.1) if code else 0.1,
-                            "given "+("file " if file else "dir ")+path+" is already hiden")
+                            "given >"+("file " if file else "dir ")+path+" is already hiden")
         except: return (1,exc_info())
         
     elif platform[:3]=="lin":
@@ -76,15 +76,15 @@ disableing strict may leads to errors.
                 if Path.split(path)[1][0]=='.':
                     rename(path,Path.split(path)[0]+Path.split(path)[1][1:])
                     return (code if code else 0,
-                             "given "+("file " if file else "dir ")+path+" is UNHIDED "+
+                             "given >"+("file " if file else "dir ")+path+" is UNHIDED "+
                         "and new path is >"+Path.split(path)[0]+Path.split(path)[1][1:])
                 else:
                     return ((code - 0.1) if code else 0.1,
-                            "given "+("file " if file else "dir ")+path+" is already not Hiden")
+                            "given >"+("file " if file else "dir ")+path+" is already not Hiden")
             else:
                 rename(path,'.'.join(Path.split(path)))
                 return (code if code else 0,
-                             "given "+("file " if file else "dir ")+path+" is HIDED "+
-                        "and new path is >"+'.'.join(Path.split(path)))
+                             "given >"+("file " if file else "dir ")+path+" is HIDED "+
+                        "and new path is >>"+'.'.join(Path.split(path)))
         except: return (1,exc_info())
     else: return (2,platform+" is not supported")
